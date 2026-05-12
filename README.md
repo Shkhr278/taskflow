@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Task Manager
 
-## Getting Started
+A Full-Stack Team Task Management Web Application built to meet the functional assignment requirements. 
+This project uses **Next.js**, **Prisma**, **SQLite**, and **JSON Web Tokens (JWT)** for authentication.
 
-First, run the development server:
+## Prerequisites
 
+Make sure you have [Node.js](https://nodejs.org/) (v18 or higher) installed on your system.
+
+## Setup Instructions
+
+Follow these exact steps to set up the application from scratch and run it locally.
+
+### 1. Install Dependencies
+Run the following command to install all necessary packages:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Initialize the Database
+This application is configured to use an easy-to-run local SQLite database (`dev.db`). You don't need to install any external database server. Just run the following command to synchronize the database schema:
+```bash
+npx prisma db push
+```
+*Note: This command reads the `prisma/schema.prisma` file, creates the `dev.db` database file, and generates the Prisma Client.*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Start the Development Server
+Once the database is initialized, you can start the application:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Open the App
+Open [http://localhost:3000](http://localhost:3000) in your web browser. You will be redirected to the login/signup page where you can create a new account to test out the application!
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features Implemented
+- **User Authentication:** Signup, secure login with bcrypt password hashing, and JWT session handling via HTTP-only cookies.
+- **Project Management:** Project creation (creates an Admin role) and adding/removing team members via email.
+- **Task Management:** Create tasks (Title, Description, Due Date, Priority), assign users, and update workflow statuses.
+- **Dashboard:** Generates metrics calculating total tasks, tasks by status, tasks per user, and an overdue tasks counter.
+- **Role-Based Access:** 
+  - **Admin:** Has full control over tasks and can add/remove members.
+  - **Member:** Can view projects and is only allowed to update the status of tasks explicitly assigned to them.
